@@ -1,0 +1,47 @@
+Solve the following Queries(Any 10):
+1.	List the employees along with their sal+comm,
+2.	List all the emps who belong from deotno 10 or 20 and who’s salary is more that 2500. 
+3.	List the emps where third character of their name must be ‘A’ and last character is E.
+4.	Get all the employees who work in the same departments as of SCOTT.
+5.	Select all the employees who work in DALLAS.
+6.	Select department name & location of all the employees working for CLARK.(Use mgr)
+7.	List the name of the dept where more than 3 MANAGERS are working. 
+8.	Display the second maximum salary.
+9.	Update the department name from DALLAS to DHAKA.
+10.	Find out the job wise average salary in the ascending order.
+11.	Delete those employees from dept 10 or 20 who gets a commission. 
+
+
+Solve
+1.
+select ENAME, sum(SAL+COALESCE(COMM, 0)) as "TOTAL" from EMP group by ENAME
+
+2.
+select * from EMP where DEPTNO in (10,20) and SAL>2500
+
+3.
+select * from EMP where ENAME like '__A%E';
+
+4.
+select * from EMP where DEPTNO = (select DEPTNO from EMP where ENAME='SCOTT')
+
+5.
+select * from EMP where DEPTNO = (select DEPTNO from DEPT where LOC='DALLAS')
+
+6.
+select DNAME,LOC from DEPT where DEPTNO in (select DEPTNO from EMP where MGR=(select EMPNO from EMP where ENAME='CLARK'))
+
+7.
+select DNAME from DEPT where DEPTNO like (select DEPTNO from EMP where JOB='MANAGER' group by DEPTNO having count(*)>3)
+
+8.
+select SAL from EMP where SAL in(select max(SAL) from EMP where SAL<(select max(SAL) from EMP))
+
+9.
+update DEPT set LOC = 'DHAKA' where LOC='DALLAS' 
+
+10.
+select JOB, round(avg(SAL),2) from EMP group by JOB order by JOB asc
+
+11.
+delete from EMP where DEPTNO in (10,20) and COALESCE(COMM, 0) !=0

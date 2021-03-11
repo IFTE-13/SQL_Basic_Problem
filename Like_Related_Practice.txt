@@ -1,0 +1,13 @@
+#Question
+1)	Display all the Employees whose name  start with A
+2)	Display all the Employees whose name  start with B and end with E 
+3)	Display all the Employees whose name’s 2nd character is L and 2nd last character is K
+4)	Display all the managers whose name doesn't start with A & S
+5)	Display all the Employees whose name  who’s job start with S
+
+Solve
+1.select * from EMP where ENAME like 'A%'
+2.select * from EMP where ENAME like 'B%E'
+3.select * from EMP where ENAME like '_L%K_'
+4.select * from EMP where ENAME not like '[AS]%' and JOB='MANAGER'
+5.select * from EMP where JOB like 'S%'

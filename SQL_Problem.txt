@@ -1,0 +1,31 @@
+Question:
+1.	List all the emps except ‘PRESIDENT’ & ‘MANAGER” in asc order of Salaries. 
+2.	List the emps whose Jobs are same as ALLEN.
+3.	Display department-wise total salaries for all the Managers and Analysts, only if the average salaries for the same is greater than or equal to 3000.
+4.	Display all the employees who are getting some commission in department 20 & 30
+5.	Select details of all the employees working for FORD.
+6.	Find out the job wise no. of Analysty and Clerk whose salary is more than 800.
+7.	Find out the department where more than 3 emplyees are working.
+8.	Show the unique department no from the em,p table.
+9.	Increase the salary to 5% for the Analysts who joined in 1982. 
+10.	Display job-wise maximum salary, minimum salary and average salary in a single query.
+11.	Show the unique department no from the emp table.
+12.	Increase the salary to 5% for the MANAGERS and SALESMSN who joined in 1981 
+13.	Delete those employees who get commission as well as whose salary is greater than 1800.
+14.	List the emps with departmental information whose BLAKE whose  Sal is more than ALLEN and job are same as FORD or BLAKE.
+
+Solve:
+1.select * from EMP where JOB = 'MANAGER' and to_char(HIREDATE,'MM-YYYY') = '03-1981'
+2.select * from EMP where JOB = 'MANAGER' and MGR = (select EMPNO from EMP where ENAME='KING')
+3.select * from EMP where ENAME like '%K_' and LENGTH(ENAME) = '5';
+4.select * from EMP where ENAME like '__R%' and JOB in (select JOB from EMP where JOB like 'A%' or JOB like 'M%')
+5.select * from EMP where JOB !='ANALYST' order by SAL DESC
+6.select * from EMP where DEPTNO = (select DEPTNO from EMP where ENAME='SMITH') and ENAME != 'SMITH'
+7.select DEPTNO,sum(SAL)from EMP where COALESCE(COMM, 0) !=0 and JOB in ('ANALYST','SALESMAN') group by DEPTNO
+8.select * from EMP where MGR in (select EMPNO from EMP where JOB='MANAGER') and DEPTNO in (20,30)
+9.select JOB,count(*) "PERSON" from EMP where JOB in ('ANALYST', 'CLERK') and SAL>800 group by JOB having count(*)>0
+10.select JOb,count(*) from EMP group by JOB having count(*)>3
+11.select distinct DEPTNO from EMP
+12.select ENAME,SAL,(sal+(sal*0.05)) "NEW SALARY" from EMP where to_char(HIREDATE,'YYYY')='1981' and JOB in ('MANAGER','SALESMAN')
+13.delete from EMP where COALESCE(COMM, 0) !=0 or SAL>1800
+14.select * from DEPT where DEPTNO in (select DEPTNO from EMP where SAL > (select SAL from EMP where ENAME='ALLEN') and JOB in (select JOB from EMP where ENAME in ('FORD','BLAKE')))

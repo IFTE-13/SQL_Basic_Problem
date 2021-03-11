@@ -1,0 +1,23 @@
+Question:
+1)	Display all the employees who total salary is more than 2000.(Total Salary = Sal + Comm)	
+2)	Find out the most junior and the most senior employee’s joining date in a single query.
+3)	Find out the job wise  total salaries.
+4)	Display the average salary of all CLERKS and ANALYST who belong from deptno 10 and 20.
+5)	Display total,average salaries for the employees whose employee number is not from 7288 to 7790.
+6)	Display total salaries for all the Managers and Analysts, only if the individual got more than 2000 will be considered.
+7)	Find out the number of ANALYST we have.
+8)	Find out the number of manager and analyst. (Department wise)
+9)	Show the department wise employee numbers, only if the department have less than 3 employees
+10)	Find out the department who has more than 3 managerss.
+
+Solve:
+select * from EMP where SAL+COMM> 2000 
+select max(HIREDATE), min(HIREDATE) from EMP
+select JOB,sum(SAL) from EMP group by JOB
+select avg(sal) from EMP where JOB in ('CLERKS', 'ANALYST') and DEPTNO in (10, 20)
+select round(avg(SAL),2) , sum(SAL) from EMP where EMPNO not in (7288, 7790)
+select sum(SAL) from EMP where JOB in ('MANAGER', 'ANALYSTS') and SAL>2000
+select count(JOB) from EMP where JOB = 'ANALYST'
+select DEPTNO,count(*) from EMP where JOB in ('ANALYST', 'MANAGER') group by DEPTNO
+select DEPTNO,count(*) from EMP group by DEPTNO having count(*)<3
+select DEPTNO, count(JOB) from EMP where job = 'MANAGER' group by DEPTNO having count(*)>3

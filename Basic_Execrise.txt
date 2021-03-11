@@ -1,0 +1,67 @@
+TITLE: CREATE TABLE, INSERTION AND SHOW;
+
+# AIUB (TABLE NAME)
+-----------------------------
+DEPT_ID             DEPT_CODE         DEPT_NAME
+-------             ----------      -----------------
+2                     CSE         COMPUTER SCIENCE AND ENGINEERING
+3                     BAN         BUSSINESS ADMINISTRATION
+4                     IPE         INDUSTRIAL AND PRODUCTION ENGINEERING
+5                     ENG                ENGLISH
+6                     CEP         CHEMICAL ENGINEERING SCIENCE
+1                    Math           MATHEMATICS 
+
+
+
+#QUERE OF AIUB TABLE:
+--------------------
+#01.FIND ALL INFO:
+""""""""""""""""""""
+
+#02.FIND ALL INFO WHERE DEPT_ID IS ABOVE 3:
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+#03.SHOW ALL DEPT_ID AND DEPT_NAME:
+""""""""""""""""""""""""""""""""""""""""""""
+
+#04.FIND ALL INFO WHERE DEPT_CODE IS "CSE":
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+#05.SHOW ALL DEPT_ID AND DEPT_NAME
+
+#07. FIND ALL INFORMATION WHERE DEPT_ID GREATER EQUAL to 4
+
+#08. TO DROP AIUB TABLE 
+""""""""""""""""""""""""
+
+#09. ADD A COLUMN NAME CAPACITY WHERE DATATYPE WILL BE NUMBER.
+
+#10. CHANGE THE TABLE NAME AIUB TO AIUB_COURSE_INFO
+
+#11. UPDATE THE DEPT CODE OF 1 TO MTH
+
+#12. DELETE DEPT_ID 2.
+
+
+
+#Table_Creation
+
+CREATE TABLE AIUB (DEPT_ID NUMBER(2) PRIMARY KEY, DEPT_CODE VARCHAR2(10) , DEPT_NAME VARCHAR2(64) ) ;
+
+INSERT INTO AIUB VALUES (1,'CSE','COMPUTER SCIENCE AND ENGINEERING');
+INSERT INTO AIUB VALUES (2,'BAN','BUSSINESS ADMINISTRATION');
+INSERT INTO AIUB VALUES (3,'IPE','INDUSTRIAL AND PRODUCTION ENGINEERING');
+INSERT INTO AIUB VALUES (4,'ENG','ENGLISH');
+INSERT INTO AIUB VALUES (5,'CEP','CHEMICAL ENGINEERING SCIENCE');
+INSERT INTO AIUB VALUES (6,'MATH','MATHEMATICS');
+
+#Quary Commad
+
+select * from AIUB
+select * from AIUB where DEPT_ID>3
+select DEPT_ID, DEPT_NAME from AIUB
+select * from AIUB where DEPT_CODE = 'CSE'
+select * from AIUB where DEPT_ID >=4
+update AIUB set DEPT_ID = '1' where DEPT_ID = 5;
+delete from AIUB where DEPT_ID = 2
+drop table AIUB

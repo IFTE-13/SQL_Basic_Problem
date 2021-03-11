@@ -1,0 +1,24 @@
+Question:
+1.	List all the emps except ‘PRESIDENT’ & ‘MANAGER” in asc order of Salaries. 
+2.	List the emps whose Jobs are same as ALLEN.
+3.	Display department-wise total salaries for all the Managers and Analysts, only if the average salaries for the same is greater than or equal to 3000.
+4.	Display all the employees who are getting some commission in department 20 & 30
+5.	Select details of all the employees working for FORD.
+6.	Find out the job wise no. of Analysty and Clerk whose salary is more than 800.
+7.	Find out the department where more than 3 emplyees are working.
+8.	Show the unique department no from the em,p table.
+9.	Increase the salary to 5% for the Analysts who joined in 1982. 
+10.	Display job-wise maximum salary, minimum salary and average salary in a single query.
+
+Solve:
+
+select * from EMP where JOB not in ('PRESIDENT','MANAGER')
+select * from EMP where JOB = (select JOB from EMP where ENAME='ALLEN')
+select avg(SAL)as AVGSAL from EMP where JOB in ('MANAGER','ANALYST') group by JOB)
+select * from EMP where COALESCE(COMM, 0) !=0 and DEPTNO in (20,30)
+select * from EMP where MGR=(select EMPNO from EMP where ENAME='FORD')
+select JOB,count(*) "PERSON" from EMP where JOB in ('ANALYST', 'CLERK') and SAL>800 group by JOB having count(*)>0
+select * from DEPT where DEPTNO in (select DEPTNO from EMP group by DEPTNO having count(*) > 3)
+select distinct DEPTNO from EMP
+select sum(sal+(sal*0.05)) "NEW SALARY" from EMP where to_char(HIREDATE,'YYYY')='1982' and JOB='ANALYST'
+select JOB,max(SAL),min(SAL),round(avg(SAL),2) from EMP group by JOB

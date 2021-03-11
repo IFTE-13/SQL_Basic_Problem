@@ -1,0 +1,53 @@
+Question
+1.	Show the details of the min salary holder of the employee table.
+2.	Find the details of the most senior employee.
+3.	Select all the employees who are earning same as BLAKE.
+4.	Display all the employees who have joined after FORD
+5.	List all the employees who are earning more than SMITH and less then KING.
+6.	Find the employees who work in the same department with BLAKE
+7.	Display all the salesmen who are not located at DALLAS.
+8.	Select department name & location of all the employees working for CLARK.
+9.	Select all the departmental information for all the managers.
+10.	Display all the managers & clerks who work in Accounts and Marketing departments.
+11.	Select all the employees who work in DALLAS.
+12.	Find the details of the 3rd lowest salary holder.
+13.	 Find out the department where at least 2 MANAGERS are working.
+14.	 Find out the total salaries of CLERKs and ANALYSTs where each individual get more than 1000.
+15.	Find the location where maximum number of employee is located
+
+
+Solve:
+
+1.
+select *  from EMP where COMM is not null and DEPTNO in (select DEPTNO from DEPT where LOC != 'CHICAGO')
+2.
+select JOB,count(*) from EMP group by JOB having count(*)>3
+3.
+select * from EMP where HIREDATE=(select max(HIREDATE) from EMP where DEPTNO = 30) and DEPTNO = 30 
+4.
+select DNAME, LOC from DEPT where DEPTNO in (select DEPTNO from EMP where COMM is not null)
+5.
+select JOB,sum(12*SAL) as ANNUAL_SALARY from EMP where to_char(HIREDATE,'YYYY')='1982' group by JOB
+or,
+select JOB,sum(12*SAL) "ANNUAL SALARY" from EMP where to_char(HIREDATE,'YYYY')='1982' group by JOB
+6.
+select * from EMP where JOB in('MANAGER', 'ANALYST') and MGR=(select EMPNO from EMP where ENAME='KING')
+7.
+select * from EMP where JOB = (select JOB from EMP where ENAME='ALLEN') and ENAME != 'ALLEN'
+8.
+select * from DEPT where DEPTNO in(select distinct DEPTNO from EMP where JOB in (select JOB from EMP where ENAME in ('ALLEN', 'BLAKE')) or SAL>(select SAL from EMP where ENAME='FORD'))
+9.
+select max(SAL) from EMP where DEPTNO = (select DEPTNO from DEPT where DNAME='SALES')
+10.
+select max(SAL) from EMP where MGR = (select EMPNO from EMP where ENAME='KING')
+11.
+select * from EMP where SAL in(select max(SAL) from EMP where SAL<(select max(SAL) from EMP))
+12.
+select * from EMP where SAL in (select min(SAL) from EMP where SAL>(select min(SAL) from EMP where SAL>(select min(SAL) from EMP)))
+13.
+select * from DEPT where DEPTNO in (select DEPTNO from EMP where JOB='MANAGER' group by DEPTNO having count(*)>2)
+14.
+select sum(SAL) from EMP where SAL>1000 and JOB in ('CLERK', 'ANALYST') group by JOB 
+15.
+select LOC from DEPT where DEPTNO = (select DEPTNO from EMP group by DEPTNO having count(DEPTNO)=(select max(count(DEPTNO)) from EMP group by DEPTNO ))
+

@@ -1,0 +1,25 @@
+Question
+1)	Show the details of the min salary holder of the employee table.
+2)	Find the details of the most senior employee.
+3)	Select all the employees who are earning same as BLAKE.
+4)	Display all the employees who have joined after FORD
+5)	List all the employees who are earning more than SMITH and less then KING.
+6)	Find the employees who work in the same department with BLAKE
+7)	Display all the salesmen who are not located at DALLAS.
+8)	Select department name & location of all the employees working for CLARK.
+9)	Select all the departmental information for all the managers.
+10)	Display all the managers & clerks who work in Accounts and Marketing departments.
+11)	Select all the employees who work in DALLAS.
+
+Solve
+1.select * from EMP where SAL=(select min(SAL) from EMP)
+2.select * from EMP where HIREDATE=(SELECT min(HIREDATE) from EMP)
+3.select * from EMP where SAL=(select SAL from EMP where ENAME='BLAKE')
+4.select * from EMP where HIREDATE>(select HIREDATE from EMP where ENAME='FORD')
+5.select * from EMP where SAL<(select SAL from emp where ENAME ='KING') and SAL>(select SAL from emp where ENAME ='SMITH')
+6.select * from EMP where DEPTNO=(select DEPTNO from EMP where ENAME='BLAKE') 
+7.select * from EMP where DEPTNO in (select DEPTNO from DEPT where JOB='SALESMAN' and LOC!='DALLAS')
+8.select DNAME,LOC from DEPT where DEPTNO=(select DEPTNO from EMP where MGR=(select EMPNO from EMP where ENAME='CLARK'))
+9.select * from DEPT where DEPTNO in (select DEPTNO from EMP where JOB='MANAGER') 
+10.select * from EMP where JOB in ('MANAGER', 'CLERK') and DEPTNO in (select DEPTNO from DEPT where DNAME in ('ACCOUNTING', 'SALES'))
+11.select * from EMP where DEPTNO=(select DEPTNO from DEPT where LOC='DALLAS')
